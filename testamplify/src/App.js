@@ -19,7 +19,7 @@ function App({ signOut, user }) {
       const data = await fetchRecipeAPI()
       setRecipe(JSON.parse(data))
     }
-    fetchRecipeList()
+    fetchRecipeList();
   }, [])
 
   // レシピ名登録ようインプットフォームが変更されたらsetInputValueを変更

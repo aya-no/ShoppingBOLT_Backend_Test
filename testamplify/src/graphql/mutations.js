@@ -1,24 +1,89 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createBlog = /* GraphQL */ `
-  mutation CreateBlog(
-    $input: CreateBlogInput!
-    $condition: ModelBlogConditionInput
+export const createShop = /* GraphQL */ `
+  mutation CreateShop(
+    $input: CreateShopInput!
+    $condition: ModelShopConditionInput
   ) {
-    createBlog(input: $input, condition: $condition) {
+    createShop(input: $input, condition: $condition) {
       id
-      name
-      posts {
+      shop
+      corner
+      userName
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const updateShop = /* GraphQL */ `
+  mutation UpdateShop(
+    $input: UpdateShopInput!
+    $condition: ModelShopConditionInput
+  ) {
+    updateShop(input: $input, condition: $condition) {
+      id
+      shop
+      corner
+      userName
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteShop = /* GraphQL */ `
+  mutation DeleteShop(
+    $input: DeleteShopInput!
+    $condition: ModelShopConditionInput
+  ) {
+    deleteShop(input: $input, condition: $condition) {
+      id
+      shop
+      corner
+      userName
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const createShoppingList = /* GraphQL */ `
+  mutation CreateShoppingList(
+    $input: CreateShoppingListInput!
+    $condition: ModelShoppingListConditionInput
+  ) {
+    createShoppingList(input: $input, condition: $condition) {
+      id
+      date
+      userName
+      Items {
         items {
           id
-          title
+          item
+          unit
+          corner
+          userName
+          shoppinglistID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          blogPostsId
+          owner
           __typename
         }
         nextToken
@@ -30,28 +95,34 @@ export const createBlog = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
   }
 `;
-export const updateBlog = /* GraphQL */ `
-  mutation UpdateBlog(
-    $input: UpdateBlogInput!
-    $condition: ModelBlogConditionInput
+export const updateShoppingList = /* GraphQL */ `
+  mutation UpdateShoppingList(
+    $input: UpdateShoppingListInput!
+    $condition: ModelShoppingListConditionInput
   ) {
-    updateBlog(input: $input, condition: $condition) {
+    updateShoppingList(input: $input, condition: $condition) {
       id
-      name
-      posts {
+      date
+      userName
+      Items {
         items {
           id
-          title
+          item
+          unit
+          corner
+          userName
+          shoppinglistID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          blogPostsId
+          owner
           __typename
         }
         nextToken
@@ -63,28 +134,34 @@ export const updateBlog = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
   }
 `;
-export const deleteBlog = /* GraphQL */ `
-  mutation DeleteBlog(
-    $input: DeleteBlogInput!
-    $condition: ModelBlogConditionInput
+export const deleteShoppingList = /* GraphQL */ `
+  mutation DeleteShoppingList(
+    $input: DeleteShoppingListInput!
+    $condition: ModelShoppingListConditionInput
   ) {
-    deleteBlog(input: $input, condition: $condition) {
+    deleteShoppingList(input: $input, condition: $condition) {
       id
-      name
-      posts {
+      date
+      userName
+      Items {
         items {
           id
-          title
+          item
+          unit
+          corner
+          userName
+          shoppinglistID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          blogPostsId
+          owner
           __typename
         }
         nextToken
@@ -96,43 +173,38 @@ export const deleteBlog = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
   }
 `;
-export const createPost = /* GraphQL */ `
-  mutation CreatePost(
-    $input: CreatePostInput!
-    $condition: ModelPostConditionInput
+export const createMenu = /* GraphQL */ `
+  mutation CreateMenu(
+    $input: CreateMenuInput!
+    $condition: ModelMenuConditionInput
   ) {
-    createPost(input: $input, condition: $condition) {
+    createMenu(input: $input, condition: $condition) {
       id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      comments {
+      date
+      userName
+      Recipes {
         items {
           id
-          content
+          recipe
+          memo
+          url
+          serving
+          category1
+          category2
+          like
+          userName
+          menuID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -144,44 +216,38 @@ export const createPost = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      blogPostsId
+      owner
       __typename
     }
   }
 `;
-export const updatePost = /* GraphQL */ `
-  mutation UpdatePost(
-    $input: UpdatePostInput!
-    $condition: ModelPostConditionInput
+export const updateMenu = /* GraphQL */ `
+  mutation UpdateMenu(
+    $input: UpdateMenuInput!
+    $condition: ModelMenuConditionInput
   ) {
-    updatePost(input: $input, condition: $condition) {
+    updateMenu(input: $input, condition: $condition) {
       id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      comments {
+      date
+      userName
+      Recipes {
         items {
           id
-          content
+          recipe
+          memo
+          url
+          serving
+          category1
+          category2
+          like
+          userName
+          menuID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -193,44 +259,38 @@ export const updatePost = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      blogPostsId
+      owner
       __typename
     }
   }
 `;
-export const deletePost = /* GraphQL */ `
-  mutation DeletePost(
-    $input: DeletePostInput!
-    $condition: ModelPostConditionInput
+export const deleteMenu = /* GraphQL */ `
+  mutation DeleteMenu(
+    $input: DeleteMenuInput!
+    $condition: ModelMenuConditionInput
   ) {
-    deletePost(input: $input, condition: $condition) {
+    deleteMenu(input: $input, condition: $condition) {
       id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-      comments {
+      date
+      userName
+      Recipes {
         items {
           id
-          content
+          recipe
+          memo
+          url
+          serving
+          category1
+          category2
+          like
+          userName
+          menuID
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
-          postCommentsId
+          owner
           __typename
         }
         nextToken
@@ -242,139 +302,328 @@ export const deletePost = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      blogPostsId
+      owner
       __typename
     }
   }
 `;
-export const createComment = /* GraphQL */ `
-  mutation CreateComment(
-    $input: CreateCommentInput!
-    $condition: ModelCommentConditionInput
+export const createItem = /* GraphQL */ `
+  mutation CreateItem(
+    $input: CreateItemInput!
+    $condition: ModelItemConditionInput
   ) {
-    createComment(input: $input, condition: $condition) {
+    createItem(input: $input, condition: $condition) {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          __typename
-        }
-        comments {
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        blogPostsId
-        __typename
-      }
-      content
+      item
+      unit
+      corner
+      userName
+      shoppinglistID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      postCommentsId
+      owner
       __typename
     }
   }
 `;
-export const updateComment = /* GraphQL */ `
-  mutation UpdateComment(
-    $input: UpdateCommentInput!
-    $condition: ModelCommentConditionInput
+export const updateItem = /* GraphQL */ `
+  mutation UpdateItem(
+    $input: UpdateItemInput!
+    $condition: ModelItemConditionInput
   ) {
-    updateComment(input: $input, condition: $condition) {
+    updateItem(input: $input, condition: $condition) {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          __typename
-        }
-        comments {
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        blogPostsId
-        __typename
-      }
-      content
+      item
+      unit
+      corner
+      userName
+      shoppinglistID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      postCommentsId
+      owner
       __typename
     }
   }
 `;
-export const deleteComment = /* GraphQL */ `
-  mutation DeleteComment(
-    $input: DeleteCommentInput!
-    $condition: ModelCommentConditionInput
+export const deleteItem = /* GraphQL */ `
+  mutation DeleteItem(
+    $input: DeleteItemInput!
+    $condition: ModelItemConditionInput
   ) {
-    deleteComment(input: $input, condition: $condition) {
+    deleteItem(input: $input, condition: $condition) {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          __typename
-        }
-        comments {
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        blogPostsId
-        __typename
-      }
-      content
+      item
+      unit
+      corner
+      userName
+      shoppinglistID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      postCommentsId
+      owner
+      __typename
+    }
+  }
+`;
+export const createItemPreset = /* GraphQL */ `
+  mutation CreateItemPreset(
+    $input: CreateItemPresetInput!
+    $condition: ModelItemPresetConditionInput
+  ) {
+    createItemPreset(input: $input, condition: $condition) {
+      id
+      item
+      unit
+      corner
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const updateItemPreset = /* GraphQL */ `
+  mutation UpdateItemPreset(
+    $input: UpdateItemPresetInput!
+    $condition: ModelItemPresetConditionInput
+  ) {
+    updateItemPreset(input: $input, condition: $condition) {
+      id
+      item
+      unit
+      corner
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const deleteItemPreset = /* GraphQL */ `
+  mutation DeleteItemPreset(
+    $input: DeleteItemPresetInput!
+    $condition: ModelItemPresetConditionInput
+  ) {
+    deleteItemPreset(input: $input, condition: $condition) {
+      id
+      item
+      unit
+      corner
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const createRecipeItem = /* GraphQL */ `
+  mutation CreateRecipeItem(
+    $input: CreateRecipeItemInput!
+    $condition: ModelRecipeItemConditionInput
+  ) {
+    createRecipeItem(input: $input, condition: $condition) {
+      id
+      recipeItem
+      quantity
+      userName
+      recipeID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const updateRecipeItem = /* GraphQL */ `
+  mutation UpdateRecipeItem(
+    $input: UpdateRecipeItemInput!
+    $condition: ModelRecipeItemConditionInput
+  ) {
+    updateRecipeItem(input: $input, condition: $condition) {
+      id
+      recipeItem
+      quantity
+      userName
+      recipeID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteRecipeItem = /* GraphQL */ `
+  mutation DeleteRecipeItem(
+    $input: DeleteRecipeItemInput!
+    $condition: ModelRecipeItemConditionInput
+  ) {
+    deleteRecipeItem(input: $input, condition: $condition) {
+      id
+      recipeItem
+      quantity
+      userName
+      recipeID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const createRecipe = /* GraphQL */ `
+  mutation CreateRecipe(
+    $input: CreateRecipeInput!
+    $condition: ModelRecipeConditionInput
+  ) {
+    createRecipe(input: $input, condition: $condition) {
+      id
+      recipe
+      memo
+      url
+      serving
+      category1
+      category2
+      like
+      userName
+      RecipeItems {
+        items {
+          id
+          recipeItem
+          quantity
+          userName
+          recipeID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      menuID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const updateRecipe = /* GraphQL */ `
+  mutation UpdateRecipe(
+    $input: UpdateRecipeInput!
+    $condition: ModelRecipeConditionInput
+  ) {
+    updateRecipe(input: $input, condition: $condition) {
+      id
+      recipe
+      memo
+      url
+      serving
+      category1
+      category2
+      like
+      userName
+      RecipeItems {
+        items {
+          id
+          recipeItem
+          quantity
+          userName
+          recipeID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      menuID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteRecipe = /* GraphQL */ `
+  mutation DeleteRecipe(
+    $input: DeleteRecipeInput!
+    $condition: ModelRecipeConditionInput
+  ) {
+    deleteRecipe(input: $input, condition: $condition) {
+      id
+      recipe
+      memo
+      url
+      serving
+      category1
+      category2
+      like
+      userName
+      RecipeItems {
+        items {
+          id
+          recipeItem
+          quantity
+          userName
+          recipeID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      menuID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
       __typename
     }
   }

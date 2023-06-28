@@ -2,5 +2,11 @@
   "AppSyncApiName": "testamplifyGql",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2023-06-27T12:37:58.731Z"
+  "AuthModeLastUpdated": "2023-06-28T22:53:08.120Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authtestamplify",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

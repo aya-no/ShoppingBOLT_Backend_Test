@@ -1,25 +1,25 @@
-type Shop @model @auth(rules: [{allow: public}]) {
+type Shop @model @auth(rules: [{allow: owner}]) {
   id: ID!
   shop: String!
   corner: [String]
   userName: String
 }
 
-type ShoppingList @model @auth(rules: [{allow: public}]) {
+type ShoppingList @model @auth(rules: [{allow: owner}]) {
   id: ID!
   date: AWSDate
   userName: String
   Items: [Item] @hasMany(indexName: "byShoppingList", fields: ["id"])
 }
 
-type Menu @model @auth(rules: [{allow: public}]) {
+type Menu @model @auth(rules: [{allow: owner}]) {
   id: ID!
   date: AWSDate
   userName: String
   Recipes: [Recipe] @hasMany(indexName: "byMenu", fields: ["id"])
 }
 
-type Item @model @auth(rules: [{allow: public}]) {
+type Item @model @auth(rules: [{allow: owner}]) {
   id: ID!
   item: String!
   unit: String
@@ -35,7 +35,7 @@ type ItemPreset @model @auth(rules: [{allow: public}]) {
   corner: String
 }
 
-type RecipeItem @model @auth(rules: [{allow: public}]) {
+type RecipeItem @model @auth(rules: [{allow: owner}]) {
   id: ID!
   recipeItem: String!
   quantity: Float
@@ -43,7 +43,7 @@ type RecipeItem @model @auth(rules: [{allow: public}]) {
   recipeID: ID @index(name: "byRecipe")
 }
 
-type Recipe @model @auth(rules: [{allow: public}]) {
+type Recipe @model @auth(rules: [{allow: owner}]) {
   id: ID!
   recipe: String!
   memo: String
@@ -55,5 +55,4 @@ type Recipe @model @auth(rules: [{allow: public}]) {
   userName: String
   RecipeItems: [RecipeItem] @hasMany(indexName: "byRecipe", fields: ["id"])
   menuID: ID @index(name: "byMenu")
-}
- 
+} 
