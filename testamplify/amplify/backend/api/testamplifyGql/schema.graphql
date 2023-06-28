@@ -1,0 +1,59 @@
+type Shop @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  shop: String!
+  corner: [String]
+  userName: String
+}
+
+type ShoppingList @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  date: AWSDate
+  userName: String
+  Items: [Item] @hasMany(indexName: "byShoppingList", fields: ["id"])
+}
+
+type Menu @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  date: AWSDate
+  userName: String
+  Recipes: [Recipe] @hasMany(indexName: "byMenu", fields: ["id"])
+}
+
+type Item @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  item: String!
+  unit: String
+  corner: String
+  userName: String
+  shoppinglistID: ID @index(name: "byShoppingList")
+}
+
+type ItemPreset @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  item: String!
+  unit: String
+  corner: String
+}
+
+type RecipeItem @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  recipeItem: String!
+  quantity: Float
+  userName: String
+  recipeID: ID @index(name: "byRecipe")
+}
+
+type Recipe @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  recipe: String!
+  memo: String
+  url: AWSURL
+  serving: Float
+  category1: String
+  category2: String
+  like: Int
+  userName: String
+  RecipeItems: [RecipeItem] @hasMany(indexName: "byRecipe", fields: ["id"])
+  menuID: ID @index(name: "byMenu")
+}
+ 
