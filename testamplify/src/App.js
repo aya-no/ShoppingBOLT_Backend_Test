@@ -1,4 +1,5 @@
 import { Amplify } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
@@ -6,10 +7,10 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
-import { createRecipeAPI, fetchRecipeAPI } from './api';
+import { createRecipeAPI, fetchRecipeAPI, dataClearAPI } from './api';
 Amplify.configure(awsExports);
 
-function App({ signOut, user }) {
+function App({ user }) {
   const [recipe, setRecipe] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -36,28 +37,37 @@ function App({ signOut, user }) {
       url: "http://yahoo.co.jp",
       serving: 2,
       category1: "主菜",
-      category2: "中華",
-      userName: user.attributes.sub
+      category2: "中華"
     }
     // レシピを登録するAPI呼び出し
     await createRecipeAPI(sendRecipe)
     setInputValue('')
   }
 
+  async function signOut() {
+    try {
+      await Auth.signOut();
+      await dataClearAPI();
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  }
+
 
   return (
     <>
-      <h1>Hello {user.attributes.sub}</h1>
+      <h1>Hello {user.attributes.email} id{user.attributes.sub}</h1>
       <button onClick={signOut}>Sign out</button>
 
-      {console.log(recipe)}
+      {/* {console.log(user)} */}
 
       <h2>レシピの一覧の取得↓</h2>
 
       {recipe && recipe.map((recipe, index) => {
         return (
           <div key={index}>
-            {recipe.recipe}
+            {console.log(recipe)}
+            {recipe.recipe} id:{recipe.id} 登録ユーザー:{recipe.owner}
           </div>
         )
       })}

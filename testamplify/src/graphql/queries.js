@@ -7,7 +7,6 @@ export const getShop = /* GraphQL */ `
       id
       shop
       corner
-      userName
       createdAt
       updatedAt
       _version
@@ -29,7 +28,6 @@ export const listShops = /* GraphQL */ `
         id
         shop
         corner
-        userName
         createdAt
         updatedAt
         _version
@@ -61,7 +59,6 @@ export const syncShops = /* GraphQL */ `
         id
         shop
         corner
-        userName
         createdAt
         updatedAt
         _version
@@ -81,27 +78,10 @@ export const getShoppingList = /* GraphQL */ `
     getShoppingList(id: $id) {
       id
       date
-      userName
-      Items {
-        items {
-          id
-          item
-          unit
-          corner
-          userName
-          shoppinglistID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      item
+      unit
+      quantity
+      corner
       createdAt
       updatedAt
       _version
@@ -122,12 +102,10 @@ export const listShoppingLists = /* GraphQL */ `
       items {
         id
         date
-        userName
-        Items {
-          nextToken
-          startedAt
-          __typename
-        }
+        item
+        unit
+        quantity
+        corner
         createdAt
         updatedAt
         _version
@@ -158,12 +136,10 @@ export const syncShoppingLists = /* GraphQL */ `
       items {
         id
         date
-        userName
-        Items {
-          nextToken
-          startedAt
-          __typename
-        }
+        item
+        unit
+        quantity
+        corner
         createdAt
         updatedAt
         _version
@@ -183,19 +159,11 @@ export const getMenu = /* GraphQL */ `
     getMenu(id: $id) {
       id
       date
-      userName
-      Recipes {
+      recipes {
         items {
           id
-          recipe
-          memo
-          url
-          serving
-          category1
-          category2
-          like
-          userName
-          menuID
+          menuId
+          recipeId
           createdAt
           updatedAt
           _version
@@ -228,8 +196,7 @@ export const listMenus = /* GraphQL */ `
       items {
         id
         date
-        userName
-        Recipes {
+        recipes {
           nextToken
           startedAt
           __typename
@@ -264,8 +231,7 @@ export const syncMenus = /* GraphQL */ `
       items {
         id
         date
-        userName
-        Recipes {
+        recipes {
           nextToken
           startedAt
           __typename
@@ -291,8 +257,6 @@ export const getItem = /* GraphQL */ `
       item
       unit
       corner
-      userName
-      shoppinglistID
       createdAt
       updatedAt
       _version
@@ -315,8 +279,6 @@ export const listItems = /* GraphQL */ `
         item
         unit
         corner
-        userName
-        shoppinglistID
         createdAt
         updatedAt
         _version
@@ -349,44 +311,6 @@ export const syncItems = /* GraphQL */ `
         item
         unit
         corner
-        userName
-        shoppinglistID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const itemsByShoppinglistID = /* GraphQL */ `
-  query ItemsByShoppinglistID(
-    $shoppinglistID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelItemFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    itemsByShoppinglistID(
-      shoppinglistID: $shoppinglistID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        item
-        unit
-        corner
-        userName
-        shoppinglistID
         createdAt
         updatedAt
         _version
@@ -479,7 +403,7 @@ export const getRecipeItem = /* GraphQL */ `
       id
       recipeItem
       quantity
-      userName
+      corner
       recipeID
       createdAt
       updatedAt
@@ -502,7 +426,7 @@ export const listRecipeItems = /* GraphQL */ `
         id
         recipeItem
         quantity
-        userName
+        corner
         recipeID
         createdAt
         updatedAt
@@ -535,7 +459,7 @@ export const syncRecipeItems = /* GraphQL */ `
         id
         recipeItem
         quantity
-        userName
+        corner
         recipeID
         createdAt
         updatedAt
@@ -570,7 +494,7 @@ export const recipeItemsByRecipeID = /* GraphQL */ `
         id
         recipeItem
         quantity
-        userName
+        corner
         recipeID
         createdAt
         updatedAt
@@ -597,13 +521,29 @@ export const getRecipe = /* GraphQL */ `
       category1
       category2
       like
-      userName
+      Menus {
+        items {
+          id
+          menuId
+          recipeId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       RecipeItems {
         items {
           id
           recipeItem
           quantity
-          userName
+          corner
           recipeID
           createdAt
           updatedAt
@@ -617,7 +557,6 @@ export const getRecipe = /* GraphQL */ `
         startedAt
         __typename
       }
-      menuID
       createdAt
       updatedAt
       _version
@@ -644,13 +583,16 @@ export const listRecipes = /* GraphQL */ `
         category1
         category2
         like
-        userName
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
         RecipeItems {
           nextToken
           startedAt
           __typename
         }
-        menuID
         createdAt
         updatedAt
         _version
@@ -687,13 +629,16 @@ export const syncRecipes = /* GraphQL */ `
         category1
         category2
         like
-        userName
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
         RecipeItems {
           nextToken
           startedAt
           __typename
         }
-        menuID
         createdAt
         updatedAt
         _version
@@ -708,22 +653,29 @@ export const syncRecipes = /* GraphQL */ `
     }
   }
 `;
-export const recipesByMenuID = /* GraphQL */ `
-  query RecipesByMenuID(
-    $menuID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelRecipeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    recipesByMenuID(
-      menuID: $menuID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
+export const getRecipeMenu = /* GraphQL */ `
+  query GetRecipeMenu($id: ID!) {
+    getRecipeMenu(id: $id) {
+      id
+      menuId
+      recipeId
+      menu {
+        id
+        date
+        recipes {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      recipe {
         id
         recipe
         memo
@@ -732,13 +684,254 @@ export const recipesByMenuID = /* GraphQL */ `
         category1
         category2
         like
-        userName
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
         RecipeItems {
           nextToken
           startedAt
           __typename
         }
-        menuID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const listRecipeMenus = /* GraphQL */ `
+  query ListRecipeMenus(
+    $filter: ModelRecipeMenuFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRecipeMenus(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        menuId
+        recipeId
+        menu {
+          id
+          date
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        recipe {
+          id
+          recipe
+          memo
+          url
+          serving
+          category1
+          category2
+          like
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const syncRecipeMenus = /* GraphQL */ `
+  query SyncRecipeMenus(
+    $filter: ModelRecipeMenuFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncRecipeMenus(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        menuId
+        recipeId
+        menu {
+          id
+          date
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        recipe {
+          id
+          recipe
+          memo
+          url
+          serving
+          category1
+          category2
+          like
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const recipeMenusByMenuId = /* GraphQL */ `
+  query RecipeMenusByMenuId(
+    $menuId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRecipeMenuFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    recipeMenusByMenuId(
+      menuId: $menuId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        menuId
+        recipeId
+        menu {
+          id
+          date
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        recipe {
+          id
+          recipe
+          memo
+          url
+          serving
+          category1
+          category2
+          like
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const recipeMenusByRecipeId = /* GraphQL */ `
+  query RecipeMenusByRecipeId(
+    $recipeId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRecipeMenuFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    recipeMenusByRecipeId(
+      recipeId: $recipeId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        menuId
+        recipeId
+        menu {
+          id
+          date
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        recipe {
+          id
+          recipe
+          memo
+          url
+          serving
+          category1
+          category2
+          like
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
         createdAt
         updatedAt
         _version

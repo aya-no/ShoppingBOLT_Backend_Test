@@ -10,7 +10,6 @@ export const onCreateShop = /* GraphQL */ `
       id
       shop
       corner
-      userName
       createdAt
       updatedAt
       _version
@@ -30,7 +29,6 @@ export const onUpdateShop = /* GraphQL */ `
       id
       shop
       corner
-      userName
       createdAt
       updatedAt
       _version
@@ -50,7 +48,6 @@ export const onDeleteShop = /* GraphQL */ `
       id
       shop
       corner
-      userName
       createdAt
       updatedAt
       _version
@@ -69,27 +66,10 @@ export const onCreateShoppingList = /* GraphQL */ `
     onCreateShoppingList(filter: $filter, owner: $owner) {
       id
       date
-      userName
-      Items {
-        items {
-          id
-          item
-          unit
-          corner
-          userName
-          shoppinglistID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      item
+      unit
+      quantity
+      corner
       createdAt
       updatedAt
       _version
@@ -108,27 +88,10 @@ export const onUpdateShoppingList = /* GraphQL */ `
     onUpdateShoppingList(filter: $filter, owner: $owner) {
       id
       date
-      userName
-      Items {
-        items {
-          id
-          item
-          unit
-          corner
-          userName
-          shoppinglistID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      item
+      unit
+      quantity
+      corner
       createdAt
       updatedAt
       _version
@@ -147,27 +110,10 @@ export const onDeleteShoppingList = /* GraphQL */ `
     onDeleteShoppingList(filter: $filter, owner: $owner) {
       id
       date
-      userName
-      Items {
-        items {
-          id
-          item
-          unit
-          corner
-          userName
-          shoppinglistID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      item
+      unit
+      quantity
+      corner
       createdAt
       updatedAt
       _version
@@ -186,19 +132,11 @@ export const onCreateMenu = /* GraphQL */ `
     onCreateMenu(filter: $filter, owner: $owner) {
       id
       date
-      userName
-      Recipes {
+      recipes {
         items {
           id
-          recipe
-          memo
-          url
-          serving
-          category1
-          category2
-          like
-          userName
-          menuID
+          menuId
+          recipeId
           createdAt
           updatedAt
           _version
@@ -229,19 +167,11 @@ export const onUpdateMenu = /* GraphQL */ `
     onUpdateMenu(filter: $filter, owner: $owner) {
       id
       date
-      userName
-      Recipes {
+      recipes {
         items {
           id
-          recipe
-          memo
-          url
-          serving
-          category1
-          category2
-          like
-          userName
-          menuID
+          menuId
+          recipeId
           createdAt
           updatedAt
           _version
@@ -272,19 +202,11 @@ export const onDeleteMenu = /* GraphQL */ `
     onDeleteMenu(filter: $filter, owner: $owner) {
       id
       date
-      userName
-      Recipes {
+      recipes {
         items {
           id
-          recipe
-          memo
-          url
-          serving
-          category1
-          category2
-          like
-          userName
-          menuID
+          menuId
+          recipeId
           createdAt
           updatedAt
           _version
@@ -317,8 +239,6 @@ export const onCreateItem = /* GraphQL */ `
       item
       unit
       corner
-      userName
-      shoppinglistID
       createdAt
       updatedAt
       _version
@@ -339,8 +259,6 @@ export const onUpdateItem = /* GraphQL */ `
       item
       unit
       corner
-      userName
-      shoppinglistID
       createdAt
       updatedAt
       _version
@@ -361,8 +279,6 @@ export const onDeleteItem = /* GraphQL */ `
       item
       unit
       corner
-      userName
-      shoppinglistID
       createdAt
       updatedAt
       _version
@@ -436,7 +352,7 @@ export const onCreateRecipeItem = /* GraphQL */ `
       id
       recipeItem
       quantity
-      userName
+      corner
       recipeID
       createdAt
       updatedAt
@@ -457,7 +373,7 @@ export const onUpdateRecipeItem = /* GraphQL */ `
       id
       recipeItem
       quantity
-      userName
+      corner
       recipeID
       createdAt
       updatedAt
@@ -478,7 +394,7 @@ export const onDeleteRecipeItem = /* GraphQL */ `
       id
       recipeItem
       quantity
-      userName
+      corner
       recipeID
       createdAt
       updatedAt
@@ -504,13 +420,29 @@ export const onCreateRecipe = /* GraphQL */ `
       category1
       category2
       like
-      userName
+      Menus {
+        items {
+          id
+          menuId
+          recipeId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       RecipeItems {
         items {
           id
           recipeItem
           quantity
-          userName
+          corner
           recipeID
           createdAt
           updatedAt
@@ -524,7 +456,6 @@ export const onCreateRecipe = /* GraphQL */ `
         startedAt
         __typename
       }
-      menuID
       createdAt
       updatedAt
       _version
@@ -549,13 +480,29 @@ export const onUpdateRecipe = /* GraphQL */ `
       category1
       category2
       like
-      userName
+      Menus {
+        items {
+          id
+          menuId
+          recipeId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       RecipeItems {
         items {
           id
           recipeItem
           quantity
-          userName
+          corner
           recipeID
           createdAt
           updatedAt
@@ -569,7 +516,6 @@ export const onUpdateRecipe = /* GraphQL */ `
         startedAt
         __typename
       }
-      menuID
       createdAt
       updatedAt
       _version
@@ -594,13 +540,29 @@ export const onDeleteRecipe = /* GraphQL */ `
       category1
       category2
       like
-      userName
+      Menus {
+        items {
+          id
+          menuId
+          recipeId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       RecipeItems {
         items {
           id
           recipeItem
           quantity
-          userName
+          corner
           recipeID
           createdAt
           updatedAt
@@ -614,7 +576,192 @@ export const onDeleteRecipe = /* GraphQL */ `
         startedAt
         __typename
       }
-      menuID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onCreateRecipeMenu = /* GraphQL */ `
+  subscription OnCreateRecipeMenu(
+    $filter: ModelSubscriptionRecipeMenuFilterInput
+    $owner: String
+  ) {
+    onCreateRecipeMenu(filter: $filter, owner: $owner) {
+      id
+      menuId
+      recipeId
+      menu {
+        id
+        date
+        recipes {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      recipe {
+        id
+        recipe
+        memo
+        url
+        serving
+        category1
+        category2
+        like
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
+        RecipeItems {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateRecipeMenu = /* GraphQL */ `
+  subscription OnUpdateRecipeMenu(
+    $filter: ModelSubscriptionRecipeMenuFilterInput
+    $owner: String
+  ) {
+    onUpdateRecipeMenu(filter: $filter, owner: $owner) {
+      id
+      menuId
+      recipeId
+      menu {
+        id
+        date
+        recipes {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      recipe {
+        id
+        recipe
+        memo
+        url
+        serving
+        category1
+        category2
+        like
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
+        RecipeItems {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteRecipeMenu = /* GraphQL */ `
+  subscription OnDeleteRecipeMenu(
+    $filter: ModelSubscriptionRecipeMenuFilterInput
+    $owner: String
+  ) {
+    onDeleteRecipeMenu(filter: $filter, owner: $owner) {
+      id
+      menuId
+      recipeId
+      menu {
+        id
+        date
+        recipes {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      recipe {
+        id
+        recipe
+        memo
+        url
+        serving
+        category1
+        category2
+        like
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
+        RecipeItems {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
       createdAt
       updatedAt
       _version

@@ -1,6 +1,16 @@
 import { DataStore } from "aws-amplify";
 import { Recipe } from './models'
 
+// ログアウト時にローカルデータをクリアする
+export const dataClearAPI = async () => {
+    try {
+        await DataStore.clear();
+
+    } catch (err) {
+        throw err;
+    }
+}
+
 // レシピの作成
 export const createRecipeAPI = async (data) => {
     const { recipe, memo, url, serving, category1, category2, userName } = data;
@@ -32,7 +42,6 @@ export const fetchRecipeAPI = async () => {
 }
 
 // レシピの削除
-
 export const deleteRecipeAPI = async (id) => {
     try {
         const recipe = await DataStore.query(Recipe, r => r.id());

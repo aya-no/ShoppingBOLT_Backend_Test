@@ -25,13 +25,6 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "userName": {
-                    "name": "userName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -94,28 +87,33 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "userName": {
-                    "name": "userName",
+                "item": {
+                    "name": "item",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "unit": {
+                    "name": "unit",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "Items": {
-                    "name": "Items",
-                    "isArray": true,
-                    "type": {
-                        "model": "Item"
-                    },
+                "quantity": {
+                    "name": "quantity",
+                    "isArray": false,
+                    "type": "Float",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "shoppinglistID"
-                        ]
-                    }
+                    "attributes": []
+                },
+                "corner": {
+                    "name": "corner",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -179,18 +177,11 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "userName": {
-                    "name": "userName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Recipes": {
-                    "name": "Recipes",
+                "recipes": {
+                    "name": "recipes",
                     "isArray": true,
                     "type": {
-                        "model": "Recipe"
+                        "model": "RecipeMenu"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -198,7 +189,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "menuID"
+                            "menu"
                         ]
                     }
                 },
@@ -278,20 +269,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "userName": {
-                    "name": "userName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "shoppinglistID": {
-                    "name": "shoppinglistID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -315,15 +292,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byShoppingList",
-                        "fields": [
-                            "shoppinglistID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -443,8 +411,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "userName": {
-                    "name": "userName",
+                "corner": {
+                    "name": "corner",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -454,7 +422,7 @@ export const schema = {
                     "name": "recipeID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -570,12 +538,21 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "userName": {
-                    "name": "userName",
-                    "isArray": false,
-                    "type": "String",
+                "Menus": {
+                    "name": "Menus",
+                    "isArray": true,
+                    "type": {
+                        "model": "RecipeMenu"
+                    },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "recipe"
+                        ]
+                    }
                 },
                 "RecipeItems": {
                     "name": "RecipeItems",
@@ -592,13 +569,6 @@ export const schema = {
                             "recipeID"
                         ]
                     }
-                },
-                "menuID": {
-                    "name": "menuID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -625,15 +595,6 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "key",
-                    "properties": {
-                        "name": "byMenu",
-                        "fields": [
-                            "menuID"
-                        ]
-                    }
-                },
-                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -653,10 +614,108 @@ export const schema = {
                     }
                 }
             ]
+        },
+        "RecipeMenu": {
+            "name": "RecipeMenu",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "menuId": {
+                    "name": "menuId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recipeId": {
+                    "name": "recipeId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "menu": {
+                    "name": "menu",
+                    "isArray": false,
+                    "type": {
+                        "model": "Menu"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "menuId"
+                        ]
+                    }
+                },
+                "recipe": {
+                    "name": "recipe",
+                    "isArray": false,
+                    "type": {
+                        "model": "Recipe"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "recipeId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "RecipeMenus",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byMenu",
+                        "fields": [
+                            "menuId"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byRecipe",
+                        "fields": [
+                            "recipeId"
+                        ]
+                    }
+                }
+            ]
         }
     },
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "17a9b317660b87999490897bcb508bf8"
+    "version": "1277489fd9b9c05b0442c976b7cf8d01"
 };

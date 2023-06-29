@@ -17,13 +17,11 @@ export declare type ItemUpdateFormInputValues = {
     item?: string;
     unit?: string;
     corner?: string;
-    userName?: string;
 };
 export declare type ItemUpdateFormValidationValues = {
     item?: ValidationFunction<string>;
     unit?: ValidationFunction<string>;
     corner?: ValidationFunction<string>;
-    userName?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ItemUpdateFormOverridesProps = {
@@ -31,7 +29,6 @@ export declare type ItemUpdateFormOverridesProps = {
     item?: PrimitiveOverrideProps<TextFieldProps>;
     unit?: PrimitiveOverrideProps<TextFieldProps>;
     corner?: PrimitiveOverrideProps<TextFieldProps>;
-    userName?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ItemUpdateFormProps = React.PropsWithChildren<{
     overrides?: ItemUpdateFormOverridesProps | undefined | null;

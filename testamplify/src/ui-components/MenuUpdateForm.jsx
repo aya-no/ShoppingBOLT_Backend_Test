@@ -25,17 +25,14 @@ export default function MenuUpdateForm(props) {
   } = props;
   const initialValues = {
     date: "",
-    userName: "",
   };
   const [date, setDate] = React.useState(initialValues.date);
-  const [userName, setUserName] = React.useState(initialValues.userName);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = menuRecord
       ? { ...initialValues, ...menuRecord }
       : initialValues;
     setDate(cleanValues.date);
-    setUserName(cleanValues.userName);
     setErrors({});
   };
   const [menuRecord, setMenuRecord] = React.useState(menuModelProp);
@@ -51,7 +48,6 @@ export default function MenuUpdateForm(props) {
   React.useEffect(resetStateValues, [menuRecord]);
   const validations = {
     date: [],
-    userName: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -80,7 +76,6 @@ export default function MenuUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           date,
-          userName,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -138,7 +133,6 @@ export default function MenuUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               date: value,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.date ?? value;
@@ -152,31 +146,6 @@ export default function MenuUpdateForm(props) {
         errorMessage={errors.date?.errorMessage}
         hasError={errors.date?.hasError}
         {...getOverrideProps(overrides, "date")}
-      ></TextField>
-      <TextField
-        label="User name"
-        isRequired={false}
-        isReadOnly={false}
-        value={userName}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              date,
-              userName: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.userName ?? value;
-          }
-          if (errors.userName?.hasError) {
-            runValidationTasks("userName", value);
-          }
-          setUserName(value);
-        }}
-        onBlur={() => runValidationTasks("userName", userName)}
-        errorMessage={errors.userName?.errorMessage}
-        hasError={errors.userName?.hasError}
-        {...getOverrideProps(overrides, "userName")}
       ></TextField>
       <Flex
         justifyContent="space-between"

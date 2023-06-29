@@ -24,19 +24,31 @@ export default function ShoppingListCreateForm(props) {
   } = props;
   const initialValues = {
     date: "",
-    userName: "",
+    item: "",
+    unit: "",
+    quantity: "",
+    corner: "",
   };
   const [date, setDate] = React.useState(initialValues.date);
-  const [userName, setUserName] = React.useState(initialValues.userName);
+  const [item, setItem] = React.useState(initialValues.item);
+  const [unit, setUnit] = React.useState(initialValues.unit);
+  const [quantity, setQuantity] = React.useState(initialValues.quantity);
+  const [corner, setCorner] = React.useState(initialValues.corner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setDate(initialValues.date);
-    setUserName(initialValues.userName);
+    setItem(initialValues.item);
+    setUnit(initialValues.unit);
+    setQuantity(initialValues.quantity);
+    setCorner(initialValues.corner);
     setErrors({});
   };
   const validations = {
     date: [],
-    userName: [],
+    item: [{ type: "Required" }],
+    unit: [],
+    quantity: [],
+    corner: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -65,7 +77,10 @@ export default function ShoppingListCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           date,
-          userName,
+          item,
+          unit,
+          quantity,
+          corner,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -122,7 +137,10 @@ export default function ShoppingListCreateForm(props) {
           if (onChange) {
             const modelFields = {
               date: value,
-              userName,
+              item,
+              unit,
+              quantity,
+              corner,
             };
             const result = onChange(modelFields);
             value = result?.date ?? value;
@@ -138,29 +156,120 @@ export default function ShoppingListCreateForm(props) {
         {...getOverrideProps(overrides, "date")}
       ></TextField>
       <TextField
-        label="User name"
-        isRequired={false}
+        label="Item"
+        isRequired={true}
         isReadOnly={false}
-        value={userName}
+        value={item}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               date,
-              userName: value,
+              item: value,
+              unit,
+              quantity,
+              corner,
             };
             const result = onChange(modelFields);
-            value = result?.userName ?? value;
+            value = result?.item ?? value;
           }
-          if (errors.userName?.hasError) {
-            runValidationTasks("userName", value);
+          if (errors.item?.hasError) {
+            runValidationTasks("item", value);
           }
-          setUserName(value);
+          setItem(value);
         }}
-        onBlur={() => runValidationTasks("userName", userName)}
-        errorMessage={errors.userName?.errorMessage}
-        hasError={errors.userName?.hasError}
-        {...getOverrideProps(overrides, "userName")}
+        onBlur={() => runValidationTasks("item", item)}
+        errorMessage={errors.item?.errorMessage}
+        hasError={errors.item?.hasError}
+        {...getOverrideProps(overrides, "item")}
+      ></TextField>
+      <TextField
+        label="Unit"
+        isRequired={false}
+        isReadOnly={false}
+        value={unit}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              date,
+              item,
+              unit: value,
+              quantity,
+              corner,
+            };
+            const result = onChange(modelFields);
+            value = result?.unit ?? value;
+          }
+          if (errors.unit?.hasError) {
+            runValidationTasks("unit", value);
+          }
+          setUnit(value);
+        }}
+        onBlur={() => runValidationTasks("unit", unit)}
+        errorMessage={errors.unit?.errorMessage}
+        hasError={errors.unit?.hasError}
+        {...getOverrideProps(overrides, "unit")}
+      ></TextField>
+      <TextField
+        label="Quantity"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={quantity}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              date,
+              item,
+              unit,
+              quantity: value,
+              corner,
+            };
+            const result = onChange(modelFields);
+            value = result?.quantity ?? value;
+          }
+          if (errors.quantity?.hasError) {
+            runValidationTasks("quantity", value);
+          }
+          setQuantity(value);
+        }}
+        onBlur={() => runValidationTasks("quantity", quantity)}
+        errorMessage={errors.quantity?.errorMessage}
+        hasError={errors.quantity?.hasError}
+        {...getOverrideProps(overrides, "quantity")}
+      ></TextField>
+      <TextField
+        label="Corner"
+        isRequired={false}
+        isReadOnly={false}
+        value={corner}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              date,
+              item,
+              unit,
+              quantity,
+              corner: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.corner ?? value;
+          }
+          if (errors.corner?.hasError) {
+            runValidationTasks("corner", value);
+          }
+          setCorner(value);
+        }}
+        onBlur={() => runValidationTasks("corner", corner)}
+        errorMessage={errors.corner?.errorMessage}
+        hasError={errors.corner?.hasError}
+        {...getOverrideProps(overrides, "corner")}
       ></TextField>
       <Flex
         justifyContent="space-between"

@@ -2,47 +2,39 @@ type Shop @model @auth(rules: [{allow: owner}]) {
   id: ID!
   shop: String!
   corner: [String]
-  userName: String
 }
-
 type ShoppingList @model @auth(rules: [{allow: owner}]) {
   id: ID!
   date: AWSDate
-  userName: String
-  Items: [Item] @hasMany(indexName: "byShoppingList", fields: ["id"])
+  item: String!
+  unit: String
+  quantity: Float
+  corner: String
 }
-
 type Menu @model @auth(rules: [{allow: owner}]) {
   id: ID!
   date: AWSDate
-  userName: String
-  Recipes: [Recipe] @hasMany(indexName: "byMenu", fields: ["id"])
+  recipes: [Recipe] @manyToMany(relationName: "RecipeMenu")
 }
-
 type Item @model @auth(rules: [{allow: owner}]) {
   id: ID!
   item: String!
   unit: String
   corner: String
-  userName: String
-  shoppinglistID: ID @index(name: "byShoppingList")
 }
-
 type ItemPreset @model @auth(rules: [{allow: public}]) {
   id: ID!
   item: String!
   unit: String
   corner: String
 }
-
 type RecipeItem @model @auth(rules: [{allow: owner}]) {
   id: ID!
   recipeItem: String!
   quantity: Float
-  userName: String
-  recipeID: ID @index(name: "byRecipe")
+  corner: String
+  recipeID: ID! @index(name: "byRecipe")
 }
-
 type Recipe @model @auth(rules: [{allow: owner}]) {
   id: ID!
   recipe: String!
@@ -52,7 +44,15 @@ type Recipe @model @auth(rules: [{allow: owner}]) {
   category1: String
   category2: String
   like: Int
-  userName: String
+  Menus: [Menu] @manyToMany(relationName: "RecipeMenu")
   RecipeItems: [RecipeItem] @hasMany(indexName: "byRecipe", fields: ["id"])
-  menuID: ID @index(name: "byMenu")
-} 
+}
+
+
+
+
+
+
+
+
+

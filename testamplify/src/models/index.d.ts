@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
 
 
 
@@ -14,7 +14,6 @@ type EagerShop = {
   readonly id: string;
   readonly shop: string;
   readonly corner?: (string | null)[] | null;
-  readonly userName?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -27,7 +26,6 @@ type LazyShop = {
   readonly id: string;
   readonly shop: string;
   readonly corner?: (string | null)[] | null;
-  readonly userName?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -45,8 +43,10 @@ type EagerShoppingList = {
   };
   readonly id: string;
   readonly date?: string | null;
-  readonly userName?: string | null;
-  readonly Items?: (Item | null)[] | null;
+  readonly item: string;
+  readonly unit?: string | null;
+  readonly quantity?: number | null;
+  readonly corner?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -58,8 +58,10 @@ type LazyShoppingList = {
   };
   readonly id: string;
   readonly date?: string | null;
-  readonly userName?: string | null;
-  readonly Items: AsyncCollection<Item>;
+  readonly item: string;
+  readonly unit?: string | null;
+  readonly quantity?: number | null;
+  readonly corner?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -77,8 +79,7 @@ type EagerMenu = {
   };
   readonly id: string;
   readonly date?: string | null;
-  readonly userName?: string | null;
-  readonly Recipes?: (Recipe | null)[] | null;
+  readonly recipes?: (RecipeMenu | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -90,8 +91,7 @@ type LazyMenu = {
   };
   readonly id: string;
   readonly date?: string | null;
-  readonly userName?: string | null;
-  readonly Recipes: AsyncCollection<Recipe>;
+  readonly recipes: AsyncCollection<RecipeMenu>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -111,8 +111,6 @@ type EagerItem = {
   readonly item: string;
   readonly unit?: string | null;
   readonly corner?: string | null;
-  readonly userName?: string | null;
-  readonly shoppinglistID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -126,8 +124,6 @@ type LazyItem = {
   readonly item: string;
   readonly unit?: string | null;
   readonly corner?: string | null;
-  readonly userName?: string | null;
-  readonly shoppinglistID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -178,8 +174,8 @@ type EagerRecipeItem = {
   readonly id: string;
   readonly recipeItem: string;
   readonly quantity?: number | null;
-  readonly userName?: string | null;
-  readonly recipeID?: string | null;
+  readonly corner?: string | null;
+  readonly recipeID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -192,8 +188,8 @@ type LazyRecipeItem = {
   readonly id: string;
   readonly recipeItem: string;
   readonly quantity?: number | null;
-  readonly userName?: string | null;
-  readonly recipeID?: string | null;
+  readonly corner?: string | null;
+  readonly recipeID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -217,9 +213,8 @@ type EagerRecipe = {
   readonly category1?: string | null;
   readonly category2?: string | null;
   readonly like?: number | null;
-  readonly userName?: string | null;
+  readonly Menus?: (RecipeMenu | null)[] | null;
   readonly RecipeItems?: (RecipeItem | null)[] | null;
-  readonly menuID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -237,9 +232,8 @@ type LazyRecipe = {
   readonly category1?: string | null;
   readonly category2?: string | null;
   readonly like?: number | null;
-  readonly userName?: string | null;
+  readonly Menus: AsyncCollection<RecipeMenu>;
   readonly RecipeItems: AsyncCollection<RecipeItem>;
-  readonly menuID?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -248,4 +242,38 @@ export declare type Recipe = LazyLoading extends LazyLoadingDisabled ? EagerReci
 
 export declare const Recipe: (new (init: ModelInit<Recipe>) => Recipe) & {
   copyOf(source: Recipe, mutator: (draft: MutableModel<Recipe>) => MutableModel<Recipe> | void): Recipe;
+}
+
+type EagerRecipeMenu = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<RecipeMenu, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly menuId?: string | null;
+  readonly recipeId?: string | null;
+  readonly menu: Menu;
+  readonly recipe: Recipe;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyRecipeMenu = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<RecipeMenu, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly menuId?: string | null;
+  readonly recipeId?: string | null;
+  readonly menu: AsyncItem<Menu>;
+  readonly recipe: AsyncItem<Recipe>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type RecipeMenu = LazyLoading extends LazyLoadingDisabled ? EagerRecipeMenu : LazyRecipeMenu
+
+export declare const RecipeMenu: (new (init: ModelInit<RecipeMenu>) => RecipeMenu) & {
+  copyOf(source: RecipeMenu, mutator: (draft: MutableModel<RecipeMenu>) => MutableModel<RecipeMenu> | void): RecipeMenu;
 }

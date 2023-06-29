@@ -10,7 +10,6 @@ export const createShop = /* GraphQL */ `
       id
       shop
       corner
-      userName
       createdAt
       updatedAt
       _version
@@ -30,7 +29,6 @@ export const updateShop = /* GraphQL */ `
       id
       shop
       corner
-      userName
       createdAt
       updatedAt
       _version
@@ -50,7 +48,6 @@ export const deleteShop = /* GraphQL */ `
       id
       shop
       corner
-      userName
       createdAt
       updatedAt
       _version
@@ -69,27 +66,10 @@ export const createShoppingList = /* GraphQL */ `
     createShoppingList(input: $input, condition: $condition) {
       id
       date
-      userName
-      Items {
-        items {
-          id
-          item
-          unit
-          corner
-          userName
-          shoppinglistID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      item
+      unit
+      quantity
+      corner
       createdAt
       updatedAt
       _version
@@ -108,27 +88,10 @@ export const updateShoppingList = /* GraphQL */ `
     updateShoppingList(input: $input, condition: $condition) {
       id
       date
-      userName
-      Items {
-        items {
-          id
-          item
-          unit
-          corner
-          userName
-          shoppinglistID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      item
+      unit
+      quantity
+      corner
       createdAt
       updatedAt
       _version
@@ -147,27 +110,10 @@ export const deleteShoppingList = /* GraphQL */ `
     deleteShoppingList(input: $input, condition: $condition) {
       id
       date
-      userName
-      Items {
-        items {
-          id
-          item
-          unit
-          corner
-          userName
-          shoppinglistID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      item
+      unit
+      quantity
+      corner
       createdAt
       updatedAt
       _version
@@ -186,19 +132,11 @@ export const createMenu = /* GraphQL */ `
     createMenu(input: $input, condition: $condition) {
       id
       date
-      userName
-      Recipes {
+      recipes {
         items {
           id
-          recipe
-          memo
-          url
-          serving
-          category1
-          category2
-          like
-          userName
-          menuID
+          menuId
+          recipeId
           createdAt
           updatedAt
           _version
@@ -229,19 +167,11 @@ export const updateMenu = /* GraphQL */ `
     updateMenu(input: $input, condition: $condition) {
       id
       date
-      userName
-      Recipes {
+      recipes {
         items {
           id
-          recipe
-          memo
-          url
-          serving
-          category1
-          category2
-          like
-          userName
-          menuID
+          menuId
+          recipeId
           createdAt
           updatedAt
           _version
@@ -272,19 +202,11 @@ export const deleteMenu = /* GraphQL */ `
     deleteMenu(input: $input, condition: $condition) {
       id
       date
-      userName
-      Recipes {
+      recipes {
         items {
           id
-          recipe
-          memo
-          url
-          serving
-          category1
-          category2
-          like
-          userName
-          menuID
+          menuId
+          recipeId
           createdAt
           updatedAt
           _version
@@ -317,8 +239,6 @@ export const createItem = /* GraphQL */ `
       item
       unit
       corner
-      userName
-      shoppinglistID
       createdAt
       updatedAt
       _version
@@ -339,8 +259,6 @@ export const updateItem = /* GraphQL */ `
       item
       unit
       corner
-      userName
-      shoppinglistID
       createdAt
       updatedAt
       _version
@@ -361,8 +279,6 @@ export const deleteItem = /* GraphQL */ `
       item
       unit
       corner
-      userName
-      shoppinglistID
       createdAt
       updatedAt
       _version
@@ -439,7 +355,7 @@ export const createRecipeItem = /* GraphQL */ `
       id
       recipeItem
       quantity
-      userName
+      corner
       recipeID
       createdAt
       updatedAt
@@ -460,7 +376,7 @@ export const updateRecipeItem = /* GraphQL */ `
       id
       recipeItem
       quantity
-      userName
+      corner
       recipeID
       createdAt
       updatedAt
@@ -481,7 +397,7 @@ export const deleteRecipeItem = /* GraphQL */ `
       id
       recipeItem
       quantity
-      userName
+      corner
       recipeID
       createdAt
       updatedAt
@@ -507,13 +423,29 @@ export const createRecipe = /* GraphQL */ `
       category1
       category2
       like
-      userName
+      Menus {
+        items {
+          id
+          menuId
+          recipeId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       RecipeItems {
         items {
           id
           recipeItem
           quantity
-          userName
+          corner
           recipeID
           createdAt
           updatedAt
@@ -527,7 +459,6 @@ export const createRecipe = /* GraphQL */ `
         startedAt
         __typename
       }
-      menuID
       createdAt
       updatedAt
       _version
@@ -552,13 +483,29 @@ export const updateRecipe = /* GraphQL */ `
       category1
       category2
       like
-      userName
+      Menus {
+        items {
+          id
+          menuId
+          recipeId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       RecipeItems {
         items {
           id
           recipeItem
           quantity
-          userName
+          corner
           recipeID
           createdAt
           updatedAt
@@ -572,7 +519,6 @@ export const updateRecipe = /* GraphQL */ `
         startedAt
         __typename
       }
-      menuID
       createdAt
       updatedAt
       _version
@@ -597,13 +543,29 @@ export const deleteRecipe = /* GraphQL */ `
       category1
       category2
       like
-      userName
+      Menus {
+        items {
+          id
+          menuId
+          recipeId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       RecipeItems {
         items {
           id
           recipeItem
           quantity
-          userName
+          corner
           recipeID
           createdAt
           updatedAt
@@ -617,7 +579,192 @@ export const deleteRecipe = /* GraphQL */ `
         startedAt
         __typename
       }
-      menuID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const createRecipeMenu = /* GraphQL */ `
+  mutation CreateRecipeMenu(
+    $input: CreateRecipeMenuInput!
+    $condition: ModelRecipeMenuConditionInput
+  ) {
+    createRecipeMenu(input: $input, condition: $condition) {
+      id
+      menuId
+      recipeId
+      menu {
+        id
+        date
+        recipes {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      recipe {
+        id
+        recipe
+        memo
+        url
+        serving
+        category1
+        category2
+        like
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
+        RecipeItems {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const updateRecipeMenu = /* GraphQL */ `
+  mutation UpdateRecipeMenu(
+    $input: UpdateRecipeMenuInput!
+    $condition: ModelRecipeMenuConditionInput
+  ) {
+    updateRecipeMenu(input: $input, condition: $condition) {
+      id
+      menuId
+      recipeId
+      menu {
+        id
+        date
+        recipes {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      recipe {
+        id
+        recipe
+        memo
+        url
+        serving
+        category1
+        category2
+        like
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
+        RecipeItems {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteRecipeMenu = /* GraphQL */ `
+  mutation DeleteRecipeMenu(
+    $input: DeleteRecipeMenuInput!
+    $condition: ModelRecipeMenuConditionInput
+  ) {
+    deleteRecipeMenu(input: $input, condition: $condition) {
+      id
+      menuId
+      recipeId
+      menu {
+        id
+        date
+        recipes {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
+      recipe {
+        id
+        recipe
+        memo
+        url
+        serving
+        category1
+        category2
+        like
+        Menus {
+          nextToken
+          startedAt
+          __typename
+        }
+        RecipeItems {
+          nextToken
+          startedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+        __typename
+      }
       createdAt
       updatedAt
       _version

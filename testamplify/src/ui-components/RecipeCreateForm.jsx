@@ -30,7 +30,6 @@ export default function RecipeCreateForm(props) {
     category1: "",
     category2: "",
     like: "",
-    userName: "",
   };
   const [recipe, setRecipe] = React.useState(initialValues.recipe);
   const [memo, setMemo] = React.useState(initialValues.memo);
@@ -39,7 +38,6 @@ export default function RecipeCreateForm(props) {
   const [category1, setCategory1] = React.useState(initialValues.category1);
   const [category2, setCategory2] = React.useState(initialValues.category2);
   const [like, setLike] = React.useState(initialValues.like);
-  const [userName, setUserName] = React.useState(initialValues.userName);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setRecipe(initialValues.recipe);
@@ -49,7 +47,6 @@ export default function RecipeCreateForm(props) {
     setCategory1(initialValues.category1);
     setCategory2(initialValues.category2);
     setLike(initialValues.like);
-    setUserName(initialValues.userName);
     setErrors({});
   };
   const validations = {
@@ -60,7 +57,6 @@ export default function RecipeCreateForm(props) {
     category1: [],
     category2: [],
     like: [],
-    userName: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -95,7 +91,6 @@ export default function RecipeCreateForm(props) {
           category1,
           category2,
           like,
-          userName,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -157,7 +152,6 @@ export default function RecipeCreateForm(props) {
               category1,
               category2,
               like,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.recipe ?? value;
@@ -188,7 +182,6 @@ export default function RecipeCreateForm(props) {
               category1,
               category2,
               like,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.memo ?? value;
@@ -219,7 +212,6 @@ export default function RecipeCreateForm(props) {
               category1,
               category2,
               like,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.url ?? value;
@@ -254,7 +246,6 @@ export default function RecipeCreateForm(props) {
               category1,
               category2,
               like,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.serving ?? value;
@@ -285,7 +276,6 @@ export default function RecipeCreateForm(props) {
               category1: value,
               category2,
               like,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.category1 ?? value;
@@ -316,7 +306,6 @@ export default function RecipeCreateForm(props) {
               category1,
               category2: value,
               like,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.category2 ?? value;
@@ -351,7 +340,6 @@ export default function RecipeCreateForm(props) {
               category1,
               category2,
               like: value,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.like ?? value;
@@ -365,37 +353,6 @@ export default function RecipeCreateForm(props) {
         errorMessage={errors.like?.errorMessage}
         hasError={errors.like?.hasError}
         {...getOverrideProps(overrides, "like")}
-      ></TextField>
-      <TextField
-        label="User name"
-        isRequired={false}
-        isReadOnly={false}
-        value={userName}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              recipe,
-              memo,
-              url,
-              serving,
-              category1,
-              category2,
-              like,
-              userName: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.userName ?? value;
-          }
-          if (errors.userName?.hasError) {
-            runValidationTasks("userName", value);
-          }
-          setUserName(value);
-        }}
-        onBlur={() => runValidationTasks("userName", userName)}
-        errorMessage={errors.userName?.errorMessage}
-        hasError={errors.userName?.hasError}
-        {...getOverrideProps(overrides, "userName")}
       ></TextField>
       <Flex
         justifyContent="space-between"

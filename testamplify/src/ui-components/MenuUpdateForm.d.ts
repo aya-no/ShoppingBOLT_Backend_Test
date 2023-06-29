@@ -15,17 +15,14 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type MenuUpdateFormInputValues = {
     date?: string;
-    userName?: string;
 };
 export declare type MenuUpdateFormValidationValues = {
     date?: ValidationFunction<string>;
-    userName?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type MenuUpdateFormOverridesProps = {
     MenuUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     date?: PrimitiveOverrideProps<TextFieldProps>;
-    userName?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type MenuUpdateFormProps = React.PropsWithChildren<{
     overrides?: MenuUpdateFormOverridesProps | undefined | null;

@@ -26,25 +26,21 @@ export default function ItemCreateForm(props) {
     item: "",
     unit: "",
     corner: "",
-    userName: "",
   };
   const [item, setItem] = React.useState(initialValues.item);
   const [unit, setUnit] = React.useState(initialValues.unit);
   const [corner, setCorner] = React.useState(initialValues.corner);
-  const [userName, setUserName] = React.useState(initialValues.userName);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setItem(initialValues.item);
     setUnit(initialValues.unit);
     setCorner(initialValues.corner);
-    setUserName(initialValues.userName);
     setErrors({});
   };
   const validations = {
     item: [{ type: "Required" }],
     unit: [],
     corner: [],
-    userName: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -75,7 +71,6 @@ export default function ItemCreateForm(props) {
           item,
           unit,
           corner,
-          userName,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -133,7 +128,6 @@ export default function ItemCreateForm(props) {
               item: value,
               unit,
               corner,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.item ?? value;
@@ -160,7 +154,6 @@ export default function ItemCreateForm(props) {
               item,
               unit: value,
               corner,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.unit ?? value;
@@ -187,7 +180,6 @@ export default function ItemCreateForm(props) {
               item,
               unit,
               corner: value,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.corner ?? value;
@@ -201,33 +193,6 @@ export default function ItemCreateForm(props) {
         errorMessage={errors.corner?.errorMessage}
         hasError={errors.corner?.hasError}
         {...getOverrideProps(overrides, "corner")}
-      ></TextField>
-      <TextField
-        label="User name"
-        isRequired={false}
-        isReadOnly={false}
-        value={userName}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              item,
-              unit,
-              corner,
-              userName: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.userName ?? value;
-          }
-          if (errors.userName?.hasError) {
-            runValidationTasks("userName", value);
-          }
-          setUserName(value);
-        }}
-        onBlur={() => runValidationTasks("userName", userName)}
-        errorMessage={errors.userName?.errorMessage}
-        hasError={errors.userName?.hasError}
-        {...getOverrideProps(overrides, "userName")}
       ></TextField>
       <Flex
         justifyContent="space-between"

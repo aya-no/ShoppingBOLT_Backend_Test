@@ -195,11 +195,9 @@ export default function ShopUpdateForm(props) {
   const initialValues = {
     shop: "",
     corner: [],
-    userName: "",
   };
   const [shop, setShop] = React.useState(initialValues.shop);
   const [corner, setCorner] = React.useState(initialValues.corner);
-  const [userName, setUserName] = React.useState(initialValues.userName);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = shopRecord
@@ -208,7 +206,6 @@ export default function ShopUpdateForm(props) {
     setShop(cleanValues.shop);
     setCorner(cleanValues.corner ?? []);
     setCurrentCornerValue("");
-    setUserName(cleanValues.userName);
     setErrors({});
   };
   const [shopRecord, setShopRecord] = React.useState(shopModelProp);
@@ -227,7 +224,6 @@ export default function ShopUpdateForm(props) {
   const validations = {
     shop: [{ type: "Required" }],
     corner: [],
-    userName: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -257,7 +253,6 @@ export default function ShopUpdateForm(props) {
         let modelFields = {
           shop,
           corner,
-          userName,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -315,7 +310,6 @@ export default function ShopUpdateForm(props) {
             const modelFields = {
               shop: value,
               corner,
-              userName,
             };
             const result = onChange(modelFields);
             value = result?.shop ?? value;
@@ -337,7 +331,6 @@ export default function ShopUpdateForm(props) {
             const modelFields = {
               shop,
               corner: values,
-              userName,
             };
             const result = onChange(modelFields);
             values = result?.corner ?? values;
@@ -374,32 +367,6 @@ export default function ShopUpdateForm(props) {
           {...getOverrideProps(overrides, "corner")}
         ></TextField>
       </ArrayField>
-      <TextField
-        label="User name"
-        isRequired={false}
-        isReadOnly={false}
-        value={userName}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              shop,
-              corner,
-              userName: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.userName ?? value;
-          }
-          if (errors.userName?.hasError) {
-            runValidationTasks("userName", value);
-          }
-          setUserName(value);
-        }}
-        onBlur={() => runValidationTasks("userName", userName)}
-        errorMessage={errors.userName?.errorMessage}
-        hasError={errors.userName?.hasError}
-        {...getOverrideProps(overrides, "userName")}
-      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

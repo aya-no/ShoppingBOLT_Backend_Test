@@ -16,19 +16,16 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type ShopUpdateFormInputValues = {
     shop?: string;
     corner?: string[];
-    userName?: string;
 };
 export declare type ShopUpdateFormValidationValues = {
     shop?: ValidationFunction<string>;
     corner?: ValidationFunction<string>;
-    userName?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ShopUpdateFormOverridesProps = {
     ShopUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     shop?: PrimitiveOverrideProps<TextFieldProps>;
     corner?: PrimitiveOverrideProps<TextFieldProps>;
-    userName?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ShopUpdateFormProps = React.PropsWithChildren<{
     overrides?: ShopUpdateFormOverridesProps | undefined | null;

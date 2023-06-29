@@ -20,7 +20,6 @@ export declare type RecipeCreateFormInputValues = {
     category1?: string;
     category2?: string;
     like?: number;
-    userName?: string;
 };
 export declare type RecipeCreateFormValidationValues = {
     recipe?: ValidationFunction<string>;
@@ -30,7 +29,6 @@ export declare type RecipeCreateFormValidationValues = {
     category1?: ValidationFunction<string>;
     category2?: ValidationFunction<string>;
     like?: ValidationFunction<number>;
-    userName?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type RecipeCreateFormOverridesProps = {
@@ -42,7 +40,6 @@ export declare type RecipeCreateFormOverridesProps = {
     category1?: PrimitiveOverrideProps<TextFieldProps>;
     category2?: PrimitiveOverrideProps<TextFieldProps>;
     like?: PrimitiveOverrideProps<TextFieldProps>;
-    userName?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type RecipeCreateFormProps = React.PropsWithChildren<{
     overrides?: RecipeCreateFormOverridesProps | undefined | null;
