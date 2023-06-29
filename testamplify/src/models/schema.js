@@ -80,13 +80,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "date": {
-                    "name": "date",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "item": {
                     "name": "item",
                     "isArray": false,
@@ -422,7 +415,14 @@ export const schema = {
                     "name": "recipeID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": true,
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "unit": {
+                    "name": "unit",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -717,5 +717,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "1277489fd9b9c05b0442c976b7cf8d01"
+    "version": "d120d494c1637fa0e1a9b7bb034a1f1a"
 };

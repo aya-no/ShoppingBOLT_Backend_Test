@@ -13,14 +13,12 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ShoppingListCreateFormInputValues = {
-    date?: string;
     item?: string;
     unit?: string;
     quantity?: number;
     corner?: string;
 };
 export declare type ShoppingListCreateFormValidationValues = {
-    date?: ValidationFunction<string>;
     item?: ValidationFunction<string>;
     unit?: ValidationFunction<string>;
     quantity?: ValidationFunction<number>;
@@ -29,7 +27,6 @@ export declare type ShoppingListCreateFormValidationValues = {
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ShoppingListCreateFormOverridesProps = {
     ShoppingListCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    date?: PrimitiveOverrideProps<TextFieldProps>;
     item?: PrimitiveOverrideProps<TextFieldProps>;
     unit?: PrimitiveOverrideProps<TextFieldProps>;
     quantity?: PrimitiveOverrideProps<TextFieldProps>;

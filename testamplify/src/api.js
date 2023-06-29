@@ -1,5 +1,5 @@
 import { DataStore } from "aws-amplify";
-import { Recipe } from './models'
+import { Recipe, RecipeItem } from './models'
 
 // ログアウト時にローカルデータをクリアする
 export const dataClearAPI = async () => {
@@ -31,6 +31,23 @@ export const createRecipeAPI = async (data) => {
     }
 };
 
+// レシピItemの作成
+export const createRecipeItemAPI = async (data) => {
+    const { recipeItem, quantity, corner } = data;
+    try {
+        await DataStore.save(
+            new RecipeItem({
+                recipeItem,
+                quantity,
+                corner
+            })
+        );
+    } catch (err) {
+        throw err;
+    }
+};
+
+
 // レシピの取得
 export const fetchRecipeAPI = async () => {
     try {
@@ -44,7 +61,11 @@ export const fetchRecipeAPI = async () => {
 // レシピの削除
 export const deleteRecipeAPI = async (id) => {
     try {
-        const recipe = await DataStore.query(Recipe, r => r.id());
+        // const deleterecipe = await DataStore.query(Recipe, r => r.id.eq(id));
+        // DataStore.delete(JSON.stringify(deleterecipe, null, 2))
+        // console.log("削除レシピ:", JSON.stringify(deleterecipe, null, 2));
+        const deleterecipe = await DataStore.query(Recipe, id);
+        DataStore.delete(Recipe, deleterecipe)
 
     } catch (err) {
         throw err;

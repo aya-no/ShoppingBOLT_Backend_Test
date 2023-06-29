@@ -23,20 +23,17 @@ export default function ShoppingListCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    date: "",
     item: "",
     unit: "",
     quantity: "",
     corner: "",
   };
-  const [date, setDate] = React.useState(initialValues.date);
   const [item, setItem] = React.useState(initialValues.item);
   const [unit, setUnit] = React.useState(initialValues.unit);
   const [quantity, setQuantity] = React.useState(initialValues.quantity);
   const [corner, setCorner] = React.useState(initialValues.corner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setDate(initialValues.date);
     setItem(initialValues.item);
     setUnit(initialValues.unit);
     setQuantity(initialValues.quantity);
@@ -44,7 +41,6 @@ export default function ShoppingListCreateForm(props) {
     setErrors({});
   };
   const validations = {
-    date: [],
     item: [{ type: "Required" }],
     unit: [],
     quantity: [],
@@ -76,7 +72,6 @@ export default function ShoppingListCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          date,
           item,
           unit,
           quantity,
@@ -127,35 +122,6 @@ export default function ShoppingListCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Date"
-        isRequired={false}
-        isReadOnly={false}
-        type="date"
-        value={date}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              date: value,
-              item,
-              unit,
-              quantity,
-              corner,
-            };
-            const result = onChange(modelFields);
-            value = result?.date ?? value;
-          }
-          if (errors.date?.hasError) {
-            runValidationTasks("date", value);
-          }
-          setDate(value);
-        }}
-        onBlur={() => runValidationTasks("date", date)}
-        errorMessage={errors.date?.errorMessage}
-        hasError={errors.date?.hasError}
-        {...getOverrideProps(overrides, "date")}
-      ></TextField>
-      <TextField
         label="Item"
         isRequired={true}
         isReadOnly={false}
@@ -164,7 +130,6 @@ export default function ShoppingListCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              date,
               item: value,
               unit,
               quantity,
@@ -192,7 +157,6 @@ export default function ShoppingListCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              date,
               item,
               unit: value,
               quantity,
@@ -224,7 +188,6 @@ export default function ShoppingListCreateForm(props) {
             : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              date,
               item,
               unit,
               quantity: value,
@@ -252,7 +215,6 @@ export default function ShoppingListCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              date,
               item,
               unit,
               quantity,

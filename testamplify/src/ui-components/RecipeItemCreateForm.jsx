@@ -25,22 +25,26 @@ export default function RecipeItemCreateForm(props) {
   const initialValues = {
     recipeItem: "",
     quantity: "",
-    userName: "",
+    corner: "",
+    unit: "",
   };
   const [recipeItem, setRecipeItem] = React.useState(initialValues.recipeItem);
   const [quantity, setQuantity] = React.useState(initialValues.quantity);
-  const [userName, setUserName] = React.useState(initialValues.userName);
+  const [corner, setCorner] = React.useState(initialValues.corner);
+  const [unit, setUnit] = React.useState(initialValues.unit);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setRecipeItem(initialValues.recipeItem);
     setQuantity(initialValues.quantity);
-    setUserName(initialValues.userName);
+    setCorner(initialValues.corner);
+    setUnit(initialValues.unit);
     setErrors({});
   };
   const validations = {
     recipeItem: [{ type: "Required" }],
     quantity: [],
-    userName: [],
+    corner: [],
+    unit: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -70,7 +74,8 @@ export default function RecipeItemCreateForm(props) {
         let modelFields = {
           recipeItem,
           quantity,
-          userName,
+          corner,
+          unit,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -127,7 +132,8 @@ export default function RecipeItemCreateForm(props) {
             const modelFields = {
               recipeItem: value,
               quantity,
-              userName,
+              corner,
+              unit,
             };
             const result = onChange(modelFields);
             value = result?.recipeItem ?? value;
@@ -157,7 +163,8 @@ export default function RecipeItemCreateForm(props) {
             const modelFields = {
               recipeItem,
               quantity: value,
-              userName,
+              corner,
+              unit,
             };
             const result = onChange(modelFields);
             value = result?.quantity ?? value;
@@ -173,30 +180,58 @@ export default function RecipeItemCreateForm(props) {
         {...getOverrideProps(overrides, "quantity")}
       ></TextField>
       <TextField
-        label="User name"
+        label="Corner"
         isRequired={false}
         isReadOnly={false}
-        value={userName}
+        value={corner}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               recipeItem,
               quantity,
-              userName: value,
+              corner: value,
+              unit,
             };
             const result = onChange(modelFields);
-            value = result?.userName ?? value;
+            value = result?.corner ?? value;
           }
-          if (errors.userName?.hasError) {
-            runValidationTasks("userName", value);
+          if (errors.corner?.hasError) {
+            runValidationTasks("corner", value);
           }
-          setUserName(value);
+          setCorner(value);
         }}
-        onBlur={() => runValidationTasks("userName", userName)}
-        errorMessage={errors.userName?.errorMessage}
-        hasError={errors.userName?.hasError}
-        {...getOverrideProps(overrides, "userName")}
+        onBlur={() => runValidationTasks("corner", corner)}
+        errorMessage={errors.corner?.errorMessage}
+        hasError={errors.corner?.hasError}
+        {...getOverrideProps(overrides, "corner")}
+      ></TextField>
+      <TextField
+        label="Unit"
+        isRequired={false}
+        isReadOnly={false}
+        value={unit}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              recipeItem,
+              quantity,
+              corner,
+              unit: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.unit ?? value;
+          }
+          if (errors.unit?.hasError) {
+            runValidationTasks("unit", value);
+          }
+          setUnit(value);
+        }}
+        onBlur={() => runValidationTasks("unit", unit)}
+        errorMessage={errors.unit?.errorMessage}
+        hasError={errors.unit?.hasError}
+        {...getOverrideProps(overrides, "unit")}
       ></TextField>
       <Flex
         justifyContent="space-between"

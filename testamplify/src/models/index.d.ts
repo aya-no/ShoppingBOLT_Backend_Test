@@ -42,7 +42,6 @@ type EagerShoppingList = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly date?: string | null;
   readonly item: string;
   readonly unit?: string | null;
   readonly quantity?: number | null;
@@ -57,7 +56,6 @@ type LazyShoppingList = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly date?: string | null;
   readonly item: string;
   readonly unit?: string | null;
   readonly quantity?: number | null;
@@ -175,7 +173,8 @@ type EagerRecipeItem = {
   readonly recipeItem: string;
   readonly quantity?: number | null;
   readonly corner?: string | null;
-  readonly recipeID: string;
+  readonly recipeID?: string | null;
+  readonly unit?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -189,7 +188,8 @@ type LazyRecipeItem = {
   readonly recipeItem: string;
   readonly quantity?: number | null;
   readonly corner?: string | null;
-  readonly recipeID: string;
+  readonly recipeID?: string | null;
+  readonly unit?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
